@@ -5,6 +5,7 @@
  */
 package mysqlconnectiontest;
 import java.sql.*;
+import java.util.*;
 
 /**
  *
@@ -37,5 +38,28 @@ public class AlunoDAO {
         ps.close();
         
     }
-    
+    public List<Aluno> listar() throws SQLException{
+		String sql = "select * from InsertUpdate";
+        System.out.println(sql);		
+        List alunos = new ArrayList();
+		try {
+			PreparedStatement prepareStatement = this.conn.prepareStatement(sql);
+			ResultSet rs = prepareStatement.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt("ID");
+                            
+                                
+                                String nome=rs.getString("nome");
+				alunos.add("\nID: "+id+"\nNOME: "+nome);
+				System.out.println(alunos);
+			}
+			prepareStatement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        return null;
+         
+     
+		
+	}
 }
